@@ -111,7 +111,7 @@ namespace Parse
                 /// Generates a path for use in the <see cref="RelativeStorageFilePath"/> getter.
                 /// </summary>
                 /// <returns>A potential path to the cachefile</returns>
-                string GeneratePath() => Path.Combine("Parse", IsFallback ? "_fallback" : "_global", $"{(IsFallback ? new Random { }.Next().ToString() : Identifier)}.cachefile");
+                string GeneratePath() => Internal.AppInformation.RelativeStorageFallbackPath(IsFallback, Identifier);
             }
 
             /// <summary>

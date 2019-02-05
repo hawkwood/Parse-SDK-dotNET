@@ -15,7 +15,7 @@ namespace Parse.Internal.Utilities
         /// <summary>
         /// The path to a persistent user-specific storage location specific to the final client assembly of the Parse library.
         /// </summary>
-        public static string PersistentStorageFilePath => Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ParseClient.CurrentConfiguration.StorageConfiguration?.RelativeStorageFilePath ?? FallbackPersistentStorageFilePath));
+        public static string PersistentStorageFilePath => Path.GetFullPath(Path.Combine(AppInformation.BasePath, ParseClient.CurrentConfiguration.StorageConfiguration?.RelativeStorageFilePath ?? FallbackPersistentStorageFilePath));
 
         /// <summary>
         /// Gets the calculated persistent storage file fallback path for this app execution.
@@ -70,7 +70,7 @@ namespace Parse.Internal.Utilities
         /// <returns>An instance of <see cref="FileInfo"/> wrapping the the <paramref name="path"/> value</returns>
         public static FileInfo GetWrapperForRelativePersistentStorageFilePath(string path)
         {
-            path = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), path));
+            path = Path.GetFullPath(Path.Combine(AppInformation.BasePath, path));
 
             Directory.CreateDirectory(path.Substring(0, path.LastIndexOf(Path.DirectorySeparatorChar)));
             return new FileInfo(path);
