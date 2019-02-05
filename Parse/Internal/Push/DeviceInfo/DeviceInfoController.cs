@@ -29,7 +29,7 @@ namespace Parse.Push.Internal
         /// <summary>
         /// The identifier of the application
         /// </summary>
-        public string AppIdentifier => AppDomain.CurrentDomain.FriendlyName;
+        public string AppIdentifier => Parse.Internal.AppInformation.Identifier;
 
         /// <summary>
         /// The name of the current application.

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 
 namespace Parse.Internal
 {
@@ -10,25 +8,40 @@ namespace Parse.Internal
         /// <summary>
         /// The version number of the application.
         /// </summary>
-        public static string Build { get; } = Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+        public static string Build { get; } =
+#if UNITY
+          UnityEngine.Application.version; // unity override
+#else
+            Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+#endif
         /// <summary>
         /// The version number of the application.
         /// </summary>
-        public static string Version { get; } = Assembly.GetEntryAssembly().GetName().Version.ToString();
-
+        public static string Version { get; } =
+#if UNITY
+            UnityEngine.Application.version; // unity override
+#else
+        Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+#endif
         // TODO: Verify if this means Parse appId or just a unique identifier.
 
         /// <summary>
         /// The identifier of the application
         /// </summary>
-        public string AppIdentifier => AppDomain.CurrentDomain.FriendlyName;
+        public static string Identifier => AppDomain.CurrentDomain.FriendlyName;
 
         /// <summary>
         /// The name of the current application.
         /// </summary>
-        public static string Name { get; } = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+        public static string Name { get; } =
+#if UNITY
+            UnityEngine.Application.productName; // unity override
+#else
+        Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+#endif
 
         internal static Version ParseVersion => new AssemblyName(typeof(ParseClient).GetTypeInfo().Assembly.FullName).Version;
+
     }
 
 }
