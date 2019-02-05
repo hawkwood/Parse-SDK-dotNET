@@ -22,7 +22,7 @@ namespace Parse.Push.Internal
         /// <summary>
         /// The version number of the application.
         /// </summary>
-        public string AppBuildVersion { get; } = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+        public string AppBuildVersion { get; } = Parse.Internal.AppInformation.Build;
 
         // TODO: Verify if this means Parse appId or just a unique identifier.
 
@@ -34,7 +34,7 @@ namespace Parse.Push.Internal
         /// <summary>
         /// The name of the current application.
         /// </summary>
-        public string AppName { get; } = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+        public string AppName { get; } = Parse.Internal.AppInformation.Name;
 
         public Task ExecuteParseInstallationSaveHookAsync(ParseInstallation installation) => Task.FromResult<object>(null);
 

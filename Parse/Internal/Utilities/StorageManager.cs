@@ -72,7 +72,7 @@ namespace Parse.Internal.Utilities
         {
             path = Path.GetFullPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), path));
 
-            Directory.CreateDirectory(path.Substring(0, path.LastIndexOf(Path.VolumeSeparatorChar)));
+            Directory.CreateDirectory(path.Substring(0, path.LastIndexOf(Path.DirectorySeparatorChar)));
             return new FileInfo(path);
         }
 

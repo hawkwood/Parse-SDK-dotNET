@@ -1,17 +1,12 @@
 // Copyright (c) 2015-present, Parse, LLC.  All rights reserved.  This source code is licensed under the BSD-style license found in the LICENSE file in the root directory of this source tree.  An additional grant of patent rights can be found in the PATENTS file in the same directory.
 
-using Parse;
-using Parse.Common.Internal;
-using Parse.Core.Internal;
-using Parse.Push.Internal;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Parse.Common.Internal;
+using Parse.Push.Internal;
 
 namespace Parse
 {
@@ -294,7 +289,7 @@ namespace Parse
 
         private Version GetParseVersion()
         {
-            return new AssemblyName(typeof(ParseInstallation).GetTypeInfo().Assembly.FullName).Version;
+            return Internal.AppInformation.ParseVersion;
         }
 
         /// <summary>
