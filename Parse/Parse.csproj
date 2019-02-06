@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <DocumentationFile>bin\Release\netstandard2.0\Parse.xml</DocumentationFile>
+		
         <Version>2.0.0-develop</Version>
         <AssemblyVersion>2.0.0</AssemblyVersion>
         <LangVersion>latest</LangVersion>
@@ -18,24 +18,42 @@
         <PackageTags>Parse;netstandard2.0;parse-platform;backend;sdk;netstandard;app</PackageTags>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Configurations>Debug;Release;Debug-Unity</Configurations>
+        <Configurations>Debug;Release;Debug-Unity;Debug-UnityEditor</Configurations>
+        <AssemblyName>Parse</AssemblyName>
     </PropertyGroup>
+
+	<PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
+        <DocumentationFile>bin\Debug\netstandard2.0\$(AssemblyName).xml</DocumentationFile>
+		<OutputPath>bin\Debug\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.StartsWith('Release'))">
+        <DocumentationFile>bin\Release\netstandard2.0\$(AssemblyName).xml</DocumentationFile>
+		<OutputPath>bin\Release\</OutputPath>
+	</PropertyGroup>
+
+
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Unity|AnyCPU'">
       <DefineConstants>TRACE;UNITY</DefineConstants>
+      <Optimize>false</Optimize>
     </PropertyGroup>
 
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-UnityEditor|AnyCPU'">
+      <DefineConstants>TRACE;UNITY UNITY_EDITOR</DefineConstants>
+	  <AssemblyName>Parse.UnityEditor</AssemblyName>
+	  <Optimize>false</Optimize>
+	  <DebugType>portable</DebugType>
+	  <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup Condition="$(Configuration.StartsWith('Debug'))">
         <PackageReference Include="OpenCover" Version="4.6.519" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Unity|AnyCPU'">
-      <PackageReference Include="OpenCover">
-        <Version>4.6.519</Version>
-      </PackageReference>
-    </ItemGroup>
-
     <ItemGroup>
+      <Reference Include="UnityEditor">
+        <HintPath>..\UnityEditor.dll</HintPath>
+      </Reference>
       <Reference Include="UnityEngine">
         <HintPath>..\UnityEngine.dll</HintPath>
       </Reference>

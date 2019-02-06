@@ -21,6 +21,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug-Unity|Any CPU = Debug-Unity|Any CPU
+		Debug-UnityEditor|Any CPU = Debug-UnityEditor|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -28,12 +29,15 @@ Global
 		{297FE1CA-AEDF-47BB-964D-E82780EA0A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{297FE1CA-AEDF-47BB-964D-E82780EA0A1C}.Debug-Unity|Any CPU.ActiveCfg = Debug-Unity|Any CPU
 		{297FE1CA-AEDF-47BB-964D-E82780EA0A1C}.Debug-Unity|Any CPU.Build.0 = Debug-Unity|Any CPU
+		{297FE1CA-AEDF-47BB-964D-E82780EA0A1C}.Debug-UnityEditor|Any CPU.ActiveCfg = Debug-UnityEditor|Any CPU
+		{297FE1CA-AEDF-47BB-964D-E82780EA0A1C}.Debug-UnityEditor|Any CPU.Build.0 = Debug-UnityEditor|Any CPU
 		{297FE1CA-AEDF-47BB-964D-E82780EA0A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{297FE1CA-AEDF-47BB-964D-E82780EA0A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F54F1CF4-89AB-48E9-99C5-6CCD88B3EDBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F54F1CF4-89AB-48E9-99C5-6CCD88B3EDBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F54F1CF4-89AB-48E9-99C5-6CCD88B3EDBB}.Debug-Unity|Any CPU.ActiveCfg = Debug|Any CPU
 		{F54F1CF4-89AB-48E9-99C5-6CCD88B3EDBB}.Debug-Unity|Any CPU.Build.0 = Debug|Any CPU
+		{F54F1CF4-89AB-48E9-99C5-6CCD88B3EDBB}.Debug-UnityEditor|Any CPU.ActiveCfg = Debug|Any CPU
 		{F54F1CF4-89AB-48E9-99C5-6CCD88B3EDBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F54F1CF4-89AB-48E9-99C5-6CCD88B3EDBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
