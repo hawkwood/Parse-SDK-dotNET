@@ -40,6 +40,15 @@ namespace Parse.Internal
 #else
             Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
 #endif
+        /// <summary>
+        /// The name of the current application.
+        /// </summary>
+        public static string CompanyName { get; } =
+#if UNITY
+            UnityEngine.Application.companyName; // unity override
+#else
+            System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).CompanyName;
+#endif
 
         internal static Version ParseVersion => new AssemblyName(typeof(ParseClient).GetTypeInfo().Assembly.FullName).Version;
 
@@ -53,14 +62,29 @@ namespace Parse.Internal
 
 
 
-        public static string RelativeStorageFallbackPath(bool isFallback, string identifier)
+        public static string GetRelativeStorageFallbackPath(bool isFallback, string identifier)
         {
 #if UNITY
+            UnityEngine.Debug.LogWarning("GetRelativeStorageFallbackPath called");
             return Path.Combine(isFallback ? "_fallback" : "_global", $"{(isFallback ? new Random { }.Next().ToString() : identifier)}.cachefile");
 #else
             return Path.Combine("Parse", isFallback ? "_fallback" : "_global", $"{(isFallback ? new Random { }.Next().ToString() : identifier)}.cachefile");
 #endif
         }
+
+
+        public static event Action ProcessExit
+        {
+#if UNITY
+            add { UnityEngine.Application.quitting += value; }
+            remove { UnityEngine.Application.quitting -= value; }
+#else
+            add { AppDomain.CurrentDomain.ProcessExit += (_, __) => value.Invoke(); }
+            remove { AppDomain.CurrentDomain.ProcessExit -= (_, __) => value.Invoke(); }
+#endif
+        }
+
+
     }
 
-}
+    }

@@ -55,8 +55,8 @@ namespace Parse
                 /// <remarks>Should not be used with Unity.</remarks>
                 public static MetadataBasedStorageConfiguration NoCompanyInferred { get; } = new MetadataBasedStorageConfiguration
                 {
-                    CompanyName = Internal.AppInformation.Name,
-                    ProductName = String.Empty
+                    CompanyName = Internal.AppInformation.CompanyName,
+                    ProductName = Internal.AppInformation.Name
                 };
 
                 /// <summary>
@@ -111,7 +111,7 @@ namespace Parse
                 /// Generates a path for use in the <see cref="RelativeStorageFilePath"/> getter.
                 /// </summary>
                 /// <returns>A potential path to the cachefile</returns>
-                string GeneratePath() => Internal.AppInformation.RelativeStorageFallbackPath(IsFallback, Identifier);
+                string GeneratePath() => Internal.AppInformation.GetRelativeStorageFallbackPath(IsFallback, Identifier);
             }
 
             /// <summary>

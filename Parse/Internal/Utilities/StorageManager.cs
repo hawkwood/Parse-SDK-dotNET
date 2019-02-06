@@ -10,7 +10,8 @@ namespace Parse.Internal.Utilities
     /// </summary>
     internal static class StorageManager
     {
-        static StorageManager() => AppDomain.CurrentDomain.ProcessExit += (_, __) => { if (new FileInfo(FallbackPersistentStorageFilePath) is FileInfo file && file.Exists) file.Delete(); };
+        //static StorageManager() => AppDomain.CurrentDomain.ProcessExit += (_, __) => { if (new FileInfo(FallbackPersistentStorageFilePath) is FileInfo file && file.Exists) file.Delete(); };
+        static StorageManager() => AppInformation.ProcessExit += () => { if (new FileInfo(FallbackPersistentStorageFilePath) is FileInfo file && file.Exists) file.Delete(); };
 
         /// <summary>
         /// The path to a persistent user-specific storage location specific to the final client assembly of the Parse library.
@@ -79,7 +80,8 @@ namespace Parse.Internal.Utilities
         public static async Task TransferAsync(string originFilePath, string targetFilePath)
         {
             if (!String.IsNullOrWhiteSpace(originFilePath) && !String.IsNullOrWhiteSpace(targetFilePath) && new FileInfo(originFilePath) is FileInfo originFile && originFile.Exists && new FileInfo(targetFilePath) is FileInfo targetFile)
-                using (StreamWriter writer = targetFile.CreateText()) using (StreamReader reader = originFile.OpenText())
+                using (StreamWriter writer = targetFile.CreateText())
+                using (StreamReader reader = originFile.OpenText())
                     await writer.WriteAsync(await reader.ReadToEndAsync());
         }
     }
