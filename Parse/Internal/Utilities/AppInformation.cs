@@ -2,6 +2,13 @@ using System;
 using System.IO;
 using System.Reflection;
 
+#if UNITY
+using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+#endif
+
 namespace Parse.Internal
 {
     public class AppInformation
@@ -10,8 +17,12 @@ namespace Parse.Internal
         /// The version number of the application.
         /// </summary>
         public static string Build { get; } =
-#if UNITY
-            UnityEngine.Application.version; // unity override
+#if UNITY || UNITY_EDITOR
+#if UNITY_EDITOR
+            "build 0";
+#else
+            Application.version; // unity override
+#endif
 #else
             Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
 #endif
@@ -19,8 +30,12 @@ namespace Parse.Internal
         /// The version number of the application.
         /// </summary>
         public static string Version { get; } =
-#if UNITY
-            UnityEngine.Application.version; // unity override
+#if UNITY || UNITY_EDITOR
+#if UNITY_EDITOR
+            "1.0";
+#else
+            Application.version; // unity override
+#endif
 #else
             Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
 #endif
@@ -35,8 +50,12 @@ namespace Parse.Internal
         /// The name of the current application.
         /// </summary>
         public static string Name { get; } =
-#if UNITY
-            UnityEngine.Application.productName; // unity override
+#if UNITY || UNITY_EDITOR
+#if UNITY_EDITOR
+            "UnityEditor";
+#else
+            Application.productName; // unity override
+#endif
 #else
             Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
 #endif
@@ -44,8 +63,12 @@ namespace Parse.Internal
         /// The name of the current application.
         /// </summary>
         public static string CompanyName { get; } =
-#if UNITY
-            UnityEngine.Application.companyName; // unity override
+#if UNITY || UNITY_EDITOR
+#if UNITY_EDITOR
+            "Unity Technologies";
+#else
+            Application.companyName; // unity override
+#endif
 #else
             System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).CompanyName;
 #endif
@@ -54,8 +77,12 @@ namespace Parse.Internal
 
 
         public static string BasePath =>
-#if UNITY
-            UnityEngine.Application.persistentDataPath;
+#if UNITY || UNITY_EDITOR
+#if UNITY_EDITOR
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+#else
+            Application.persistentDataPath;
+#endif
 #else
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #endif
@@ -65,10 +92,9 @@ namespace Parse.Internal
         public static string GetRelativeStorageFallbackPath(bool isFallback, string identifier)
         {
 #if UNITY
-            UnityEngine.Debug.LogWarning("GetRelativeStorageFallbackPath called");
-            return Path.Combine(isFallback ? "_fallback" : "_global", $"{(isFallback ? new Random { }.Next().ToString() : identifier)}.cachefile");
+            return Path.Combine(isFallback ? "_fallback" : "_global", $"{(isFallback ? new System.Random { }.Next().ToString() : identifier)}.cachefile");
 #else
-            return Path.Combine("Parse", isFallback ? "_fallback" : "_global", $"{(isFallback ? new Random { }.Next().ToString() : identifier)}.cachefile");
+            return Path.Combine("Parse", isFallback ? "_fallback" : "_global", $"{(isFallback ? new System.Random { }.Next().ToString() : identifier)}.cachefile");
 #endif
         }
 
@@ -76,8 +102,8 @@ namespace Parse.Internal
         public static event Action ProcessExit
         {
 #if UNITY
-            add { UnityEngine.Application.quitting += value; }
-            remove { UnityEngine.Application.quitting -= value; }
+            add { Application.quitting += value; }
+            remove { Application.quitting -= value; }
 #else
             add { AppDomain.CurrentDomain.ProcessExit += (_, __) => value.Invoke(); }
             remove { AppDomain.CurrentDomain.ProcessExit -= (_, __) => value.Invoke(); }
@@ -87,4 +113,4 @@ namespace Parse.Internal
 
     }
 
-    }
+}
