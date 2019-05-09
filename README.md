@@ -46,6 +46,12 @@ You can build the library from Visual Studio Code (with the proper extensions), 
 ```batch
 dotnet build Parse.sln
 ```
+To build the feature/recode-unity-support branch use the following build commands
+```batch
+dotnet build Parse.sln -c Debug-Unity
+dotnet build Parse.sln -c Debug-UnityEditor
+```
+If you need non-debug builds you need to configure them yourself (clone the release configuration and add the conditional compilation symbols from the Debug-Unity and Debug-UnityEditor)
 
 Results can be found in either `Parse/bin/Release/netstandard2.0/` or `Parse/bin/Debug/netstandard2.0/` relative to the root project directory, where `/` is the path separator character for your system.
 
