@@ -16,29 +16,39 @@ namespace Parse.Internal
         /// <summary>
         /// The version number of the application.
         /// </summary>
-        public static string Build { get; } =
+        public static string Build
+        {
+            get =>
 #if UNITY || UNITY_EDITOR
 #if UNITY_EDITOR
             "build 0";
+        //Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 #else
-            Application.version; // unity override
+        Application.version; // unity override
+        //Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
 #endif
 #else
             Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
 #endif
+        }
         /// <summary>
         /// The version number of the application.
         /// </summary>
-        public static string Version { get; } =
+        public static string Version
+        {
+            get =>
 #if UNITY || UNITY_EDITOR
 #if UNITY_EDITOR
             "1.0";
+        //Assembly.GetExecutingAssembly().GetName().Version.ToString();
 #else
-            Application.version; // unity override
+        Application.version; // unity override
+        //Assembly.GetExecutingAssembly().GetName().Version.ToString();
 #endif
 #else
-            Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+            Assembly.GetEntryAssembly().GetName().Version.ToString();
 #endif
+        }
         // TODO: Verify if this means Parse appId or just a unique identifier.
 
         /// <summary>
@@ -49,7 +59,9 @@ namespace Parse.Internal
         /// <summary>
         /// The name of the current application.
         /// </summary>
-        public static string Name { get; } =
+        public static string Name
+        {
+            get =>
 #if UNITY || UNITY_EDITOR
 #if UNITY_EDITOR
             "UnityEditor";
@@ -57,25 +69,32 @@ namespace Parse.Internal
             Application.productName; // unity override
 #endif
 #else
-            Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+            Assembly.GetEntryAssembly().GetName().Name;
 #endif
+        }
         /// <summary>
         /// The name of the current application.
         /// </summary>
-        public static string CompanyName { get; } =
+        public static string CompanyName
+        {
+            get =>
 #if UNITY || UNITY_EDITOR
 #if UNITY_EDITOR
             "Unity Technologies";
+             //System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).CompanyName;
 #else
             Application.companyName; // unity override
+             //System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).CompanyName;
 #endif
 #else
             System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).CompanyName;
 #endif
-
+        }
         internal static Version ParseVersion => new AssemblyName(typeof(ParseClient).GetTypeInfo().Assembly.FullName).Version;
 
-
+        /// <summary>
+        /// The base path to parse caching folder location
+        /// </summary>
         public static string BasePath =>
 #if UNITY || UNITY_EDITOR
 #if UNITY_EDITOR
@@ -91,11 +110,7 @@ namespace Parse.Internal
 
         public static string GetRelativeStorageFallbackPath(bool isFallback, string identifier)
         {
-#if UNITY
-            return Path.Combine(isFallback ? "_fallback" : "_global", $"{(isFallback ? new System.Random { }.Next().ToString() : identifier)}.cachefile");
-#else
             return Path.Combine("Parse", isFallback ? "_fallback" : "_global", $"{(isFallback ? new System.Random { }.Next().ToString() : identifier)}.cachefile");
-#endif
         }
 
 

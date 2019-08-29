@@ -53,7 +53,7 @@ namespace Parse
                 /// An instance of <see cref="MetadataBasedStorageConfiguration"/> with inferred values based on the entry assembly. Should be used with <see cref="VersionInformation.Inferred"/>.
                 /// </summary>
                 /// <remarks>Should not be used with Unity.</remarks>
-                public static MetadataBasedStorageConfiguration NoCompanyInferred { get; } = new MetadataBasedStorageConfiguration
+                public static MetadataBasedStorageConfiguration CompanyInferred { get; } = new MetadataBasedStorageConfiguration
                 {
                     CompanyName = Internal.AppInformation.CompanyName,
                     ProductName = Internal.AppInformation.Name
@@ -126,26 +126,29 @@ namespace Parse
             /// </summary>
             public struct VersionInformation
             {
+                private string _buildVersion; // = Internal.AppInformation.Build;
+                private string _displayVersion; // = Internal.AppInformation.Version;
+
                 /// <summary>
                 /// An instance of <see cref="VersionInformation"/> with inferred values based on the entry assembly.
                 /// </summary>
                 /// <remarks>Should not be used with Unity.</remarks>
                 public static VersionInformation Inferred { get; } = new VersionInformation
                 {
-                    BuildVersion = Internal.AppInformation.Build,
-                    DisplayVersion = Internal.AppInformation.Version,
-                    OSVersion = Environment.OSVersion.ToString()
+                    _buildVersion = Internal.AppInformation.Build,
+                    _displayVersion = Internal.AppInformation.Version,
+                    OSVersion = Environment.OSVersion.ToString(),
                 };
 
                 /// <summary>
                 /// The build number of your app.
                 /// </summary>
-                public string BuildVersion { get; set; }
+                public string BuildVersion { get => _buildVersion; set => _buildVersion = value; } // Internal.AppInformation.Build; // { get; set; } 
 
                 /// <summary>
                 /// The human friendly version number of your app.
                 /// </summary>
-                public string DisplayVersion { get; set; }
+                public string DisplayVersion { get => _displayVersion; set => _displayVersion = value; } // Internal.AppInformation.Version; // { get; set; }
 
                 /// <summary>
                 /// The operating system version of the platform the SDK is operating in..
@@ -158,7 +161,7 @@ namespace Parse
                 internal bool IsDefault => BuildVersion is null && DisplayVersion is null && OSVersion is null;
 
                 /// <summary>
-                /// Gets a value for whether or not this instance of <see cref="VersionInformation"/> can currently be used for the generation of <see cref="MetadataBasedStorageConfiguration.NoCompanyInferred"/>.
+                /// Gets a value for whether or not this instance of <see cref="VersionInformation"/> can currently be used for the generation of <see cref="MetadataBasedStorageConfiguration.CompanyInferred"/>.
                 /// </summary>
                 internal bool CanBeUsedForInference => !(IsDefault || String.IsNullOrWhiteSpace(DisplayVersion));
             }
@@ -259,10 +262,10 @@ namespace Parse
 
                 switch (configuration.StorageConfiguration)
                 {
-                    case IStorageController controller when !(controller is null):
+                    case null:
+                        configuration.StorageConfiguration = Configuration.MetadataBasedStorageConfiguration.CompanyInferred;
                         break;
                     default:
-                        configuration.StorageConfiguration = Configuration.MetadataBasedStorageConfiguration.NoCompanyInferred;
                         break;
                 }
 
@@ -271,6 +274,7 @@ namespace Parse
                 ParseObject.RegisterSubclass<ParseUser>();
                 ParseObject.RegisterSubclass<ParseRole>();
                 ParseObject.RegisterSubclass<ParseSession>();
+                ParseObject.RegisterSubclass<ParseInstallation>();
 
                 ParseModuleController.Instance.ParseDidInitialize();
             }
