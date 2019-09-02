@@ -22,14 +22,14 @@ namespace Parse.Push.Internal
         /// <summary>
         /// The version number of the application.
         /// </summary>
-        public string AppBuildVersion { get; } = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+        public string AppBuildVersion { get; } = ParseTargetPlatform.CurrentPlatform.BuildVersion;
 
         // TODO: Verify if this means Parse appId or just a unique identifier.
 
         /// <summary>
         /// The identifier of the application
         /// </summary>
-        public string AppIdentifier => AppDomain.CurrentDomain.FriendlyName;
+        public string AppIdentifier => ParseTargetPlatform.CurrentPlatform.ProductName;
 
         /// <summary>
         /// The name of the current application.
