@@ -16,11 +16,7 @@ namespace Parse.Core.Internal
     /// <seealso cref="ParseDecoder"/>
     public abstract class ParseEncoder
     {
-#if UNITY
-    private static readonly bool isCompiledByIL2CPP = AppDomain.CurrentDomain.FriendlyName.Equals("IL2CPP Root Domain");
-#else
         private static readonly bool isCompiledByIL2CPP = false;
-#endif
 
         public static bool IsValidType(object value)
         {
@@ -102,13 +98,13 @@ namespace Parse.Core.Internal
 
         private object EncodeList(IList<object> list)
         {
-            var newArray = new List<object>();
+            List<object> newArray = new List<object>();
             // We need to explicitly cast `list` to `List<object>` rather than
             // `IList<object>` because IL2CPP is stricter than the usual Unity AOT compiler pipeline.
-            if (isCompiledByIL2CPP && list.GetType().IsArray)
-            {
-                list = new List<object>(list);
-            }
+            //if (isCompiledByIL2CPP && list.GetType().IsArray)
+            //{
+            //    list = new List<object>(list);
+            //}
             foreach (var item in list)
             {
                 if (!IsValidType(item))

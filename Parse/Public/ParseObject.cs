@@ -1419,21 +1419,13 @@ namespace Parse
         /// object might have already been there (e.g. in the case of a Facebook
         /// login)
         /// </summary>
-#if !UNITY
-        public
-#else
-    internal
-#endif
- bool IsNew
+        public bool IsNew
         {
             get
             {
                 return state.IsNew;
             }
-#if !UNITY
-            internal
-#endif
-      set
+            internal set
             {
                 MutateState(mutableClone =>
                 {
@@ -1666,13 +1658,7 @@ namespace Parse
         /// Passing "Item[]" tells the binding framework that all indexed values
         /// have changed (but not all properties)
         /// </summary>
-        protected void OnPropertyChanged(
-#if !UNITY
-[CallerMemberName] string propertyName = null
-#else
-string propertyName
-#endif
-)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             propertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
