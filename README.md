@@ -25,23 +25,16 @@ Then, in your program's entry point, paste the following code, with the text ref
 ParseClient.Initialize(new ParseClient.Configuration
 {
     ApplicationID = "",
-    Key = "",
     ServerURI = ""
 });
 ```
 
-`ApplicationID` is your app's `ApplicationId` field from your Parse Server.
-`Key` is your app's `DotNetKey` field from your Parse Server.
-`ServerURI` is the full URL to your web-hosted Parse Server.
+`ApplicationID` is your app's `ApplicationId` field from your Parse Server.  
+`ServerURI` is the full URL to your web-hosted Parse Server.  
 
-If you would like to, you can also set the `MasterKey` property, which will allow the SDK to bypass any CLPs and object permissions that are set. This property should be compatible with read-only master keys as well.
+Depending on the platforms your application targets you might need to set up your SDK properly and provide it with some additional information like application version, name, company name, etc. By default the SDK is using a target platform configuration for .NET Standard applications which should work with all .NET Standard conform applications.
+Please refer to the [Platforms](Platforms.md) document for further details, known issues and examples.
 
-There are also a few optional parameters you can choose to set if you prefer or are experiencing issues with the SDK; sometimes the operation that generates values for these properties automatically can fail unexpectedly, causing the SDK to not be able to initialize, so these properties are provided to give you the ability to bypass that operation by providing the details outright.
-
-`StorageConfiguration` represents some metadata information usually collected reflectively about the project for the purpose of data caching.
-`VersionInfo` represents some version information usually collected reflectively about the project for the purposes of data caching and metadata collection for installation object creation.
-
-To find full usage instructions for the latest stable release, please visit the [Parse docs website][parse-docs-link]. Please note that the latest stable release is quite old and does not reflect the work being done at the moment.
 
 ## Building The Library
 You can build the library from Visual Studio Code (with the proper extensions), Visual Studio 2017 Community and higher, or Visual Studio for Mac 7 and higher. You can also build the library using the command line:
