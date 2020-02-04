@@ -33,7 +33,7 @@ ParseClient.Initialize(new ParseClient.Configuration
 `ServerURI` is the full URL to your web-hosted Parse Server.  
 
 Depending on the platforms your application targets you might need to set up your SDK properly and provide it with some additional information like application version, name, company name, etc. By default the SDK is using a target platform configuration for .NET Standard applications which should work with all .NET Standard conform applications.
-Please refer to the [Platforms](Platforms.md) document for further details, known issues and examples.
+Please refer to the [Target Platforms](Platforms.md) document for further details, known issues and examples.
 
 
 ## Building The Library
