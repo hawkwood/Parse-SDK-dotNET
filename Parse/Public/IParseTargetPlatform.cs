@@ -24,7 +24,7 @@ namespace Parse
         /// <summary>
         /// The name of the current application.
         /// </summary>
-        string ProductName { get; }
+        string Name { get; }
 
         /// <summary>
         /// The name of the current application.

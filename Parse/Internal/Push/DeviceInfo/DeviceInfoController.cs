@@ -29,12 +29,12 @@ namespace Parse.Push.Internal
         /// <summary>
         /// The identifier of the application
         /// </summary>
-        public string AppIdentifier => ParseTargetPlatform.CurrentPlatform.ProductName;
+        public string AppIdentifier => ParseTargetPlatform.CurrentPlatform.Identifier;
 
         /// <summary>
         /// The name of the current application.
         /// </summary>
-        public string AppName { get; } = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+        public string AppName { get; } = ParseTargetPlatform.CurrentPlatform.Name;
 
         public Task ExecuteParseInstallationSaveHookAsync(ParseInstallation installation) => Task.FromResult<object>(null);
 

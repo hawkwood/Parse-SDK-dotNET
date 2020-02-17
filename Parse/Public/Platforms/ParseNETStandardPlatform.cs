@@ -33,7 +33,7 @@ namespace Parse.Platforms
         /// <summary>
         /// The name of the current application.
         /// </summary>
-        public virtual string ProductName
+        public virtual string Name
         {
             get => Assembly.GetEntryAssembly().GetName().Name;
         }
