@@ -57,7 +57,7 @@ namespace Parse
                 public static MetadataBasedStorageConfiguration Inferred { get; } = new MetadataBasedStorageConfiguration
                 {
                     CompanyName = ParseTargetPlatform.CurrentPlatform.CompanyName,
-                    ProductName = ParseTargetPlatform.CurrentPlatform.ProductName
+                    ProductName = ParseTargetPlatform.CurrentPlatform.Name
                 };
 
                 /// <summary>
