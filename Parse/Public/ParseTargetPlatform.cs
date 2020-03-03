@@ -19,7 +19,7 @@ namespace Parse
                 // if the current reference is not set use the default one, which resembles the default behaviour of the main branch based on .NET Standard
                 //  ->  See the github repository for additional information on custom implementations for other target platforms.
                 if (_currentPlatform == null)
-                    _currentPlatform = new ParseNETStandard();
+                    _currentPlatform = new ParseNETStandardPlatform();
                 return _currentPlatform;
             }
             set

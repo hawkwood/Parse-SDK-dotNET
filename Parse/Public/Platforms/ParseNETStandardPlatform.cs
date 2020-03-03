@@ -7,7 +7,7 @@ namespace Parse.Platforms
     /// <summary>
     /// Base implementation for the <see cref="IParseTargetPlatform"/> interface to provide platform specific data for .NET Standard target platforms.
     /// </summary>
-    public class ParseNETStandard : IParseTargetPlatform
+    public class ParseNETStandardPlatform : IParseTargetPlatform
     {
 
         /// <summary>
