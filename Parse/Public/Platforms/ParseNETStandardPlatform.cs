@@ -15,14 +15,14 @@ namespace Parse.Platforms
         /// </summary>
         public virtual string BuildVersion
         {
-            get => Assembly.GetEntryAssembly().GetName().Version.Build.ToString();
+            get => this.ApplicationAssembly.GetName().Version.Build.ToString();
         }
         /// <summary>
         /// The version number of the application.
         /// </summary>
         public virtual string DisplayVersion
         {
-            get => Assembly.GetEntryAssembly().GetName().Version.ToString();
+            get => this.ApplicationAssembly.GetName().Version.ToString();
         }
 
         /// <summary>
@@ -35,14 +35,14 @@ namespace Parse.Platforms
         /// </summary>
         public virtual string Name
         {
-            get => Assembly.GetEntryAssembly().GetName().Name;
+            get => this.ApplicationAssembly.GetName().Name;
         }
         /// <summary>
         /// The name of the current application.
         /// </summary>
         public virtual string CompanyName
         {
-            get => System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).CompanyName;
+            get => System.Diagnostics.FileVersionInfo.GetVersionInfo(this.ApplicationAssembly.Location).CompanyName;
         }
 
         /// <summary>
@@ -52,6 +52,13 @@ namespace Parse.Platforms
         {
             get => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         }
+
+        /// <summary>
+        /// The entry assembly used to determine names and version numbers
+        /// </summary>
+        protected virtual Assembly ApplicationAssembly
+        { get; } = Assembly.GetEntryAssembly();
+
 
         /// <summary>
         /// gets the relative identifier-based storage fallback path 
