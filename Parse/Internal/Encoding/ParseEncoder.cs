@@ -16,7 +16,7 @@ namespace Parse.Core.Internal
     /// <seealso cref="ParseDecoder"/>
     public abstract class ParseEncoder
     {
-#if UNITY
+#if UNITY_5_6_OR_NEWER
     private static readonly bool isCompiledByIL2CPP = AppDomain.CurrentDomain.FriendlyName.Equals("IL2CPP Root Domain");
 #else
         private static readonly bool isCompiledByIL2CPP = false;

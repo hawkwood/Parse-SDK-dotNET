@@ -16,7 +16,7 @@ namespace Parse
     public class ParseSession : ParseObject
     {
         private static readonly HashSet<string> readOnlyKeys = new HashSet<string> {
-      "sessionToken", "createdWith", "restricted", "user", "expiresAt", "installationId"
+      "sessionToken", "createdWith", "restricted", "user", "expiresAt" // , "installationId"
     };
 
         protected override bool IsKeyMutable(string key)

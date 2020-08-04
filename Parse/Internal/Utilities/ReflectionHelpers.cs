@@ -11,7 +11,7 @@ namespace Parse.Common.Internal
     {
         public static IEnumerable<PropertyInfo> GetProperties(Type type)
         {
-#if MONO || UNITY
+#if MONO || UNITY_5_6_OR_NEWER
       return type.GetProperties();
 #else
             return type.GetRuntimeProperties();
@@ -20,7 +20,7 @@ namespace Parse.Common.Internal
 
         public static MethodInfo GetMethod(Type type, string name, Type[] parameters)
         {
-#if MONO || UNITY
+#if MONO || UNITY_5_6_OR_NEWER
       return type.GetMethod(name, parameters);
 #else
             return type.GetRuntimeMethod(name, parameters);
@@ -29,7 +29,7 @@ namespace Parse.Common.Internal
 
         public static bool IsPrimitive(Type type)
         {
-#if MONO || UNITY
+#if MONO || UNITY_5_6_OR_NEWER
 			return type.IsPrimitive;
 #else
             return type.GetTypeInfo().IsPrimitive;
@@ -38,7 +38,7 @@ namespace Parse.Common.Internal
 
         public static IEnumerable<Type> GetInterfaces(Type type)
         {
-#if MONO || UNITY
+#if MONO || UNITY_5_6_OR_NEWER
       return type.GetInterfaces();
 #else
             return type.GetTypeInfo().ImplementedInterfaces;
@@ -47,7 +47,7 @@ namespace Parse.Common.Internal
 
         public static bool IsConstructedGenericType(Type type)
         {
-#if UNITY
+#if UNITY_5_6_OR_NEWER
       return type.IsGenericType && !type.IsGenericTypeDefinition;
 #else
             return type.IsConstructedGenericType;
@@ -56,7 +56,7 @@ namespace Parse.Common.Internal
 
         public static IEnumerable<ConstructorInfo> GetConstructors(Type type)
         {
-#if UNITY
+#if UNITY_5_6_OR_NEWER
       BindingFlags searchFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
       return type.GetConstructors(searchFlags);
 #else
@@ -67,7 +67,7 @@ namespace Parse.Common.Internal
 
         public static Type[] GetGenericTypeArguments(Type type)
         {
-#if UNITY
+#if UNITY_5_6_OR_NEWER
       return type.GetGenericArguments();
 #else
             return type.GenericTypeArguments;
@@ -76,7 +76,7 @@ namespace Parse.Common.Internal
 
         public static PropertyInfo GetProperty(Type type, string name)
         {
-#if MONO || UNITY
+#if MONO || UNITY_5_6_OR_NEWER
       return type.GetProperty(name);
 #else
             return type.GetRuntimeProperty(name);
@@ -105,7 +105,7 @@ namespace Parse.Common.Internal
         public static bool IsNullable(Type t)
         {
             bool isGeneric;
-#if UNITY
+#if UNITY_5_6_OR_NEWER
       isGeneric = t.IsGenericType && !t.IsGenericTypeDefinition;
 #else
             isGeneric = t.IsConstructedGenericType;
@@ -115,7 +115,7 @@ namespace Parse.Common.Internal
 
         public static IEnumerable<T> GetCustomAttributes<T>(this Assembly assembly) where T : Attribute
         {
-#if UNITY
+#if UNITY_5_6_OR_NEWER
       return assembly.GetCustomAttributes(typeof(T), false).Select(attr => attr as T);
 #else
             return CustomAttributeExtensions.GetCustomAttributes<T>(assembly);

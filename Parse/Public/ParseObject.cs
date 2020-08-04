@@ -1417,7 +1417,7 @@ namespace Parse
         /// object might have already been there (e.g. in the case of a Facebook
         /// login)
         /// </summary>
-#if !UNITY
+#if !UNITY_5_6_OR_NEWER
         public
 #else
     internal
@@ -1428,7 +1428,7 @@ namespace Parse
             {
                 return state.IsNew;
             }
-#if !UNITY
+#if !UNITY_5_6_OR_NEWER
             internal
 #endif
       set
@@ -1665,7 +1665,7 @@ namespace Parse
         /// have changed (but not all properties)
         /// </summary>
         protected void OnPropertyChanged(
-#if !UNITY
+#if !UNITY_5_6_OR_NEWER
 [CallerMemberName] string propertyName = null
 #else
 string propertyName

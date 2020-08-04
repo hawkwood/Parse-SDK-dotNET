@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-#if UNITY
+#if UNITY_5_6_OR_NEWER
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -19,7 +19,7 @@ namespace Parse.Internal
         public static string Build
         {
             get =>
-#if UNITY || UNITY_EDITOR
+#if UNITY_5_6_OR_NEWER || UNITY_EDITOR
 #if UNITY_EDITOR
             "build 0";
         //Assembly.GetExecutingAssembly().GetName().Version.Build.ToString();
@@ -37,7 +37,7 @@ namespace Parse.Internal
         public static string Version
         {
             get =>
-#if UNITY || UNITY_EDITOR
+#if UNITY_5_6_OR_NEWER || UNITY_EDITOR
 #if UNITY_EDITOR
             "1.0";
         //Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -62,7 +62,7 @@ namespace Parse.Internal
         public static string Name
         {
             get =>
-#if UNITY || UNITY_EDITOR
+#if UNITY_5_6_OR_NEWER || UNITY_EDITOR
 #if UNITY_EDITOR
             "UnityEditor";
 #else
@@ -78,7 +78,7 @@ namespace Parse.Internal
         public static string CompanyName
         {
             get =>
-#if UNITY || UNITY_EDITOR
+#if UNITY_5_6_OR_NEWER || UNITY_EDITOR
 #if UNITY_EDITOR
             "Unity Technologies";
              //System.Diagnostics.FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).CompanyName;
@@ -96,7 +96,7 @@ namespace Parse.Internal
         /// The base path to parse caching folder location
         /// </summary>
         public static string BasePath =>
-#if UNITY || UNITY_EDITOR
+#if UNITY_5_6_OR_NEWER || UNITY_EDITOR
 #if UNITY_EDITOR
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #else
@@ -116,7 +116,7 @@ namespace Parse.Internal
 
         public static event Action ProcessExit
         {
-#if UNITY
+#if UNITY_5_6_OR_NEWER
             add { Application.quitting += value; }
             remove { Application.quitting -= value; }
 #else
